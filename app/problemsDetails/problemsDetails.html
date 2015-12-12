@@ -1,0 +1,47 @@
+<br />
+<div style="float: left">
+    <label ><span class="letters" style="color:#6C7A89; font-weight:normal; font-size: 20px">Search:</span> <input ng-model="searchText"></label>
+</div>
+
+<div style="margin-left: 300px; color:#6C7A89;" class="letters" >
+    <h4 style="font-weight:normal; font-size: 20px; display: inline">Order by:</h4>
+    <input type="radio" ng-model="sortorder" value="- rating" checked> Rating</input>
+    <input type="radio" ng-model="sortorder" value="name"> Name</input>
+       
+</div>
+<br />
+
+<div class="panel panel-default" id="block" ng-repeat="problems in problems | filter:searchText |orderBy: sortorder" style="display: inline-block; width: 45%; margin: 10px">
+  <div class="panel-heading">
+    <i class="fa fa-chevron-circle-right"></i>
+    <span style="font-family: Verdana; font-size: 16px; color: #5C97BF">{{problems.name}}</span>
+    <br />
+  </div>
+    
+  <div class="panel-body" style="background-color: #F2F1EF">
+    <div class="container" style="margin: 5px 2px 5px 1px">
+
+      <img ng-src="{{problems.image}}" alt="Problems" height="150px" width="150px" style="border: 2px inset #317589; box-shadow: 2px 2px 1px #F2F1EF; margin-right: 20px; float: left; border-radius: 20px"/>
+      <ul style="list-style-type: none">
+        <li style="margin: 3px 2px;" class="letters">
+           Solved By: {{problems.solved_by}} 
+        </li>
+        <li style="margin: 3px 2px"> <uib-rating ng-model="problems.rating"></uib-rating>{{problems.rating}} </li>
+        <li style="margin: 3px 2px" class="letters"><i class="fa fa-link"></i>
+          Link: <a href="{{problems.url}}" target="_blank" syle="text-wrap: elipsis">Click Here</a>
+        </li>
+        <li style="margin: 3px 2px" class="letters"><i class="fa fa-home"></i>
+            {{problems.parent_challenge}}</li>
+        <li style="margin: 3px 2px; text-wrap: clip" class="letters"><i class="fa fa-tag"></i>
+            {{problems.tags.toString()}}
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="panel-footer">
+    <a href=""  ng-click="addToCache(problems.name)">
+      <span class="glyphicon glyphicon-thumbs-up"></span> Likes {{getFromCache(problems.name)}}
+    </a>
+  </div>
+</div>
